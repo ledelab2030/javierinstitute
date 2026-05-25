@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jAvIer Institute — Human Change. AI-Guided.</title>
+  <meta name="description" content="jAvIer Institute is an independent non-profit research institution advancing the science of AI-guided human behavioural change. Tallinn, Estonia." />
+  <link rel="canonical" href="https://javierinstitute.org" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+
+  <meta property="og:title" content="jAvIer Institute — Human Change. AI-Guided." />
+  <meta property="og:description" content="Independent non-profit research advancing AI-guided behavioural change. Founded 2026 · Tallinn, Estonia." />
+  <meta property="og:url" content="https://javierinstitute.org" />
+  <meta property="og:type" content="website" />
+
+  <!-- Preload critical font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script>
+    (function() {
+      var t = localStorage.getItem('ji-theme') || 'dark';
+      var l = localStorage.getItem('ji-lang') || 'en';
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.setAttribute('lang', l);
+    })();
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── TOKENS ── */
+    :root {
+      --bg:       #05090f;
+      --bg2:      #090e18;
+      --surface:  #0c1220;
+      --border:   rgba(201,168,76,0.13);
+      --line:     #141c2a;
+      --text:     #e4ddd0;
+      --muted:    #637086;
+      --soft:     #8a9ab8;
+      --gold:     #c9a84c;
+      --gold-dim: rgba(201,168,76,0.45);
+      --cyan:     #56b0c6;
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --sans:     'DM Sans', sans-serif;
+      --mono:     'IBM Plex Mono', 'Courier New', monospace;
+    }
+
+    [data-theme="light"] {
+      --bg:       #f3efe4;
+      --bg2:      #eceae0;
+      --surface:  #e6e2d6;
+      --border:   rgba(140,100,30,0.18);
+      --line:     #ddd8c8;
+      --text:     #181c2a;
+      --muted:    #7a7a6a;
+      --soft:     #5a6070;
+      --gold:     #9a7030;
+      --gold-dim: rgba(150,110,40,0.35);
+      --cyan:     #226a80;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 2.5rem;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(5,9,15,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    [data-theme="light"] nav {
+      background: rgba(243,239,228,0.92);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .nav-logo .cap-A { color: var(--gold); }
+    .nav-logo .cap-I { color: var(--cyan); }
+
+    .nav-logo .inst {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+
+    .nav-links {
+      display: flex; gap: 0; list-style: none;
+      margin-right: 1rem;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.3rem 0.85rem;
+      border-right: 1px solid var(--line);
+      transition: color 0.2s;
+    }
+
+    .nav-links li:first-child a { border-left: 1px solid var(--line); }
+    .nav-links a:hover { color: var(--text); }
+
+    .ctrl {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--line);
+      padding: 0.28rem 0.6rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      line-height: 1;
+    }
+
+    .ctrl:hover { color: var(--gold); border-color: var(--gold-dim); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 9rem 2.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Radial glow behind headline */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 30%; left: -10%;
+      width: 70vw; height: 80vh;
+      background: radial-gradient(ellipse at 40% 50%, rgba(201,168,76,0.04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.15s ease-out forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      max-width: 820px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s ease-out forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero h1 .period {
+      color: var(--gold-dim);
+    }
+
+    .hero-body {
+      font-size: 1.05rem;
+      color: var(--soft);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s ease-out forwards;
+    }
+
+    .hero-chips {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s ease-out forwards;
+    }
+
+    .chip {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+    }
+
+    .chip--gold {
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+
+    /* ── DIVIDERS ── */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 0 2.5rem;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 5rem 2.5rem;
+      max-width: 1100px;
+    }
+
+    .section--wide {
+      max-width: 100%;
+      padding: 5rem 2.5rem;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .section h2 em { font-style: italic; color: var(--gold); }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--soft);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── IDENTITY CHIPS ROW ── */
+    .identity-row {
+      display: flex; flex-wrap: wrap; gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 2.5rem;
+    }
+
+    .identity-item {
+      background: var(--bg);
+      padding: 1.25rem 1.75rem;
+      flex: 1; min-width: 160px;
+      display: flex; flex-direction: column; gap: 0.35rem;
+      transition: background 0.2s;
+    }
+
+    .identity-item:hover { background: var(--surface); }
+
+    .identity-key {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .identity-val {
+      font-size: 0.9rem;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* ── RESEARCH PILLARS ── */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 2.5rem;
+    }
+
+    .pillar {
+      background: var(--bg);
+      padding: 2.5rem 2rem;
+      display: flex; flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s;
+    }
+
+    .pillar:hover { background: var(--surface); }
+
+    .pillar::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .pillar-num {
+      font-family: var(--mono);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.04em;
+    }
+
+    .pillar-tag {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .pillar h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .pillar p {
+      font-size: 0.875rem;
+      color: var(--soft);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .pillar-keywords {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+
+    .kw {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 0.2rem 0.55rem;
+    }
+
+    /* ── FRAMEWORKS TABLE ── */
+    .frameworks-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2.5rem;
+      font-size: 0.875rem;
+    }
+
+    .frameworks-table th {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+      font-weight: 400;
+    }
+
+    .frameworks-table td {
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    [data-theme="light"] .frameworks-table td {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .frameworks-table tr:hover td { background: var(--surface); }
+    .frameworks-table tr:last-child td { border-bottom: none; }
+
+    .fw-code {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .fw-name { color: var(--text); font-weight: 400; }
+    .fw-desc { color: var(--soft); font-size: 0.82rem; }
+
+    .fw-original {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.45rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── INSTITUTION ── */
+    .institution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 2rem;
+    }
+
+    .inst-col {
+      background: var(--bg);
+      padding: 2rem 2rem;
+    }
+
+    .inst-col-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .inst-item {
+      font-size: 0.875rem;
+      color: var(--soft);
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.025);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    [data-theme="light"] .inst-item {
+      border-bottom-color: var(--line);
+    }
+
+    .inst-item::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--gold-dim);
+      font-size: 0.75rem;
+    }
+
+    .inst-item:last-child { border-bottom: none; }
+
+    .inst-note {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      border-left: 2px solid var(--gold-dim);
+      background: rgba(201,168,76,0.04);
+      font-size: 0.82rem;
+      color: var(--soft);
+      line-height: 1.7;
+    }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      padding: 4rem 2.5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .cta-left {}
+
+    .cta-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-headline {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .cta-headline em { font-style: italic; color: var(--gold); }
+
+    .cta-links {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+
+    .cta-link {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--bg);
+      background: var(--gold);
+      text-decoration: none;
+      padding: 0.65rem 1.4rem;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+
+    .cta-link:hover { opacity: 0.85; }
+
+    .cta-link--ghost {
+      background: none;
+      color: var(--soft);
+      border: 1px solid var(--line);
+    }
+
+    .cta-link--ghost:hover { color: var(--text); border-color: var(--muted); opacity: 1; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 2.5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-brand {}
+
+    .footer-logo {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-logo .cap-A { color: var(--gold); }
+    .footer-logo .cap-I { color: var(--cyan); }
+
+    .footer-tagline {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .footer-legal {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      opacity: 0.6;
+    }
+
+    .footer-links {
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-links-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.5;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .fade-in.visible { opacity: 1; transform: none; }
+    .fade-in:nth-child(2) { transition-delay: 0.1s; }
+    .fade-in:nth-child(3) { transition-delay: 0.2s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .pillars-grid      { grid-template-columns: 1fr; }
+      .institution-grid  { grid-template-columns: 1fr; }
+      .cta-strip         { flex-direction: column; }
+      nav                { padding: 0 1.25rem; }
+      .hero              { padding: 8rem 1.25rem 4rem; }
+      .rule, .section, .section--wide, .cta-strip, footer {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      .rule { margin: 0 1.25rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .identity-row { flex-direction: column; }
+      .frameworks-table { font-size: 0.8rem; }
+      .frameworks-table th, .frameworks-table td { padding: 0.65rem 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="/" class="nav-logo">
+      j<span class="cap-A">A</span>v<span class="cap-I">I</span>er
+      <span class="inst"
+        data-en="Institute"
+        data-es="Instituto">Institute</span>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#research"     data-en="Research"     data-es="Investigación">Research</a></li>
+        <li><a href="#foundations"  data-en="Foundations"  data-es="Fundamentos">Foundations</a></li>
+        <li><a href="#institution"  data-en="Institution"  data-es="Institución">Institution</a></li>
+        <li><a href="#contact"      data-en="Contact"      data-es="Contacto">Contact</a></li>
+      </ul>
+      <button class="ctrl" id="langBtn" onclick="toggleLang()">ES</button>
+      <button class="ctrl" id="themeBtn" onclick="toggleTheme()">☀</button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <p class="hero-eyebrow"
+      data-en="Research Institute · Tallinn, Estonia · Est. 2026"
+      data-es="Instituto de Investigación · Tallin, Estonia · Fund. 2026">
+      Research Institute · Tallinn, Estonia · Est. 2026
+    </p>
+    <h1
+      data-en='Human Change<span class="period">.</span><br><em>AI-Guided<span class="period">.</span></em>'
+      data-es='Cambio humano<span class="period">.</span><br><em>Guiado por IA<span class="period">.</span></em>'>
+      Human Change<span class="period">.</span><br><em>AI-Guided<span class="period">.</span></em>
+    </h1>
+    <p class="hero-body"
+      data-en="Advancing the science of artificial-intelligence-guided behavioural change. Independent. Evidence-based. Open."
+      data-es="Avanzando la ciencia del cambio conductual guiado por inteligencia artificial. Independiente. Basado en evidencia. Abierto.">
+      Advancing the science of artificial-intelligence-guided behavioural change. Independent. Evidence-based. Open.
+    </p>
+    <div class="hero-chips">
+      <span class="chip chip--gold"
+        data-en="MTÜ · Estonia"
+        data-es="MTÜ · Estonia">
+        MTÜ · Estonia
+      </span>
+      <span class="chip"
+        data-en="Founded 2026"
+        data-es="Fundado 2026">
+        Founded 2026
+      </span>
+      <span class="chip"
+        data-en="AI · Behaviour Science · Educational Technology"
+        data-es="IA · Ciencias del Comportamiento · Tecnología Educativa">
+        AI · Behaviour Science · Educational Technology
+      </span>
+      <span class="chip"
+        data-en="Co-founded with LedeLab Group OÜ"
+        data-es="Co-fundado con LedeLab Group OÜ">
+        Co-founded with LedeLab Group OÜ
+      </span>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ── ABOUT ── -->
+  <section class="section" id="about">
+    <p class="eyebrow"
+      data-en="Mission"
+      data-es="Misión">
+      Mission
+    </p>
+    <h2
+      data-en="We study how AI guides <em>lasting</em> human change."
+      data-es="Estudiamos cómo la IA guía el cambio humano <em>duradero</em>.">
+      We study how AI guides <em>lasting</em> human change.
+    </h2>
+    <p class="lead"
+      data-en="jAvIer Institute is an independent non-profit research institution established in Tallinn, Estonia. We sit at the intersection of cognitive science, educational technology, and artificial intelligence — studying how AI can be designed to guide meaningful, measurable transformation in human behaviour."
+      data-es="jAvIer Institute es una institución de investigación independiente sin fines de lucro establecida en Tallin, Estonia. Nos situamos en la intersección de las ciencias cognitivas, la tecnología educativa y la inteligencia artificial — estudiando cómo la IA puede diseñarse para guiar una transformación conductual significativa y medible.">
+      jAvIer Institute is an independent non-profit research institution established in Tallinn, Estonia. We sit at the intersection of cognitive science, educational technology, and artificial intelligence — studying how AI can be designed to guide meaningful, measurable transformation in human behaviour.
+    </p>
+    <p class="lead"
+      data-en="Our work is grounded in validated frameworks, applied in real communities, and held to rigorous academic standards. We publish openly, collaborate with universities, and build the evidence base for AI-native health and education interventions."
+      data-es="Nuestro trabajo está fundamentado en marcos teóricos validados, aplicado en comunidades reales y sujeto a estándares académicos rigurosos. Publicamos de forma abierta, colaboramos con universidades y construimos la base de evidencia para intervenciones de salud y educación nativas en IA.">
+      Our work is grounded in validated frameworks, applied in real communities, and held to rigorous academic standards. We publish openly, collaborate with universities, and build the evidence base for AI-native health and education interventions.
+    </p>
+
+    <div class="identity-row">
+      <div class="identity-item fade-in">
+        <span class="identity-key" data-en="Legal Name" data-es="Nombre Legal">Legal Name</span>
+        <span class="identity-val">Javier Institute MTÜ</span>
+      </div>
+      <div class="identity-item fade-in">
+        <span class="identity-key" data-en="Type" data-es="Tipo">Type</span>
+        <span class="identity-val"
+          data-en="Mittetulundusühing · Non-profit"
+          data-es="Mittetulundusühing · Sin fines de lucro">
+          Mittetulundusühing · Non-profit
+        </span>
+      </div>
+      <div class="identity-item fade-in">
+        <span class="identity-key" data-en="Founded" data-es="Fundación">Founded</span>
+        <span class="identity-val">May 2026 · Tallinn, Estonia</span>
+      </div>
+      <div class="identity-item fade-in">
+        <span class="identity-key" data-en="Director" data-es="Director">Director</span>
+        <span class="identity-val">Leonardo De la Hoz Borrego</span>
+      </div>
+      <div class="identity-item fade-in">
+        <span class="identity-key">Domain</span>
+        <span class="identity-val">javierinstitute.org · .eu</span>
+      </div>
+      <div class="identity-item fade-in">
+        <span class="identity-key">Contact</span>
+        <span class="identity-val">info@javierinstitute.org</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ── RESEARCH ── -->
+  <section class="section--wide" id="research" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+    <p class="eyebrow"
+      data-en="Research Areas"
+      data-es="Líneas de Investigación">
+      Research Areas
+    </p>
+    <h2 style="max-width: 700px;"
+      data-en="Three pillars. <em>One question.</em>"
+      data-es="Tres pilares. <em>Una pregunta.</em>">
+      Three pillars. <em>One question.</em>
+    </h2>
+    <p class="lead"
+      data-en="How do we design AI that genuinely changes human behaviour — not just monitors it?"
+      data-es="¿Cómo diseñamos IA que cambie genuinamente el comportamiento humano — no solo que lo monitoree?">
+      How do we design AI that genuinely changes human behaviour — not just monitors it?
+    </p>
+
+    <div class="pillars-grid">
+
+      <div class="pillar fade-in">
+        <div class="pillar-num">01</div>
+        <div class="pillar-tag"
+          data-en="Core · Foundational"
+          data-es="Núcleo · Fundacional">
+          Core · Foundational
+        </div>
+        <h3
+          data-en="AI as Behavioural Intervention"
+          data-es="IA como Intervención Conductual">
+          AI as Behavioural Intervention
+        </h3>
+        <p
+          data-en="Design, implementation, and evaluation of conversational AI agents as behaviour-change interventors in preventive health contexts. Grounded in our original AI Extender framework — the founding empirical contribution of the Institute."
+          data-es="Diseño, implementación y evaluación de agentes de IA conversacional como interventores de cambio conductual en contextos de salud preventiva. Fundamentado en nuestro framework original AI Extender — la contribución empírica fundacional del Instituto.">
+          Design, implementation, and evaluation of conversational AI agents as behaviour-change interventors in preventive health contexts. Grounded in our original AI Extender framework — the founding empirical contribution of the Institute.
+        </p>
+        <div class="pillar-keywords">
+          <span class="kw">Conversational AI</span>
+          <span class="kw">Health behaviour</span>
+          <span class="kw">TTM</span>
+          <span class="kw">COM-B</span>
+        </div>
+      </div>
+
+      <div class="pillar fade-in">
+        <div class="pillar-num">02</div>
+        <div class="pillar-tag"
+          data-en="Applied · Communities"
+          data-es="Aplicado · Comunidades">
+          Applied · Communities
+        </div>
+        <h3
+          data-en="Families, Schools, and Sustainable Change"
+          data-es="Familias, Colegios y Cambio Sostenible">
+          Families, Schools, and Sustainable Change
+        </h3>
+        <p
+          data-en="Family-school dynamics in the adoption of health-promoting behaviours. The role of AI as a facilitator of change — extending human relationships, not replacing them. Applied research in Colombian and Estonian educational communities."
+          data-es="Dinámicas familia-escuela en la adopción de conductas promotoras de salud. El rol de la IA como facilitadora del cambio — extendiendo las relaciones humanas, no reemplazándolas. Investigación aplicada en comunidades educativas colombianas y estonias.">
+          Family-school dynamics in the adoption of health-promoting behaviours. The role of AI as a facilitator of change — extending human relationships, not replacing them. Applied research in Colombian and Estonian educational communities.
+        </p>
+        <div class="pillar-keywords">
+          <span class="kw">Educational communities</span>
+          <span class="kw">Preventive health</span>
+          <span class="kw">Motivation</span>
+          <span class="kw">Family dynamics</span>
+        </div>
+      </div>
+
+      <div class="pillar fade-in">
+        <div class="pillar-num">03</div>
+        <div class="pillar-tag"
+          data-en="Methodology · Systems"
+          data-es="Metodología · Sistemas">
+          Methodology · Systems
+        </div>
+        <h3
+          data-en="Ethical AI Architecture for Public Health"
+          data-es="Arquitectura Ética de IA para Salud Pública">
+          Ethical AI Architecture for Public Health
+        </h3>
+        <p
+          data-en="Engineering frameworks for prompt design in behavioural health contexts. Ethical evaluation protocols. Models for AI deployment in public health at scale — from pilot to population."
+          data-es="Marcos de ingeniería para diseño de prompts en contextos de salud conductual. Protocolos de evaluación ética. Modelos de despliegue de IA en salud pública a escala — del piloto a la población.">
+          Engineering frameworks for prompt design in behavioural health contexts. Ethical evaluation protocols. Models for AI deployment in public health at scale — from pilot to population.
+        </p>
+        <div class="pillar-keywords">
+          <span class="kw">Prompt engineering</span>
+          <span class="kw">Ethics</span>
+          <span class="kw">Public health</span>
+          <span class="kw">Scalability</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ── FOUNDATIONS ── -->
+  <section class="section" id="foundations">
+    <p class="eyebrow"
+      data-en="Theoretical Foundations"
+      data-es="Fundamentos Teóricos">
+      Theoretical Foundations
+    </p>
+    <h2
+      data-en="Built on <em>validated science.</em>"
+      data-es="Construido sobre <em>ciencia validada.</em>">
+      Built on <em>validated science.</em>
+    </h2>
+    <p class="lead"
+      data-en="Every intervention framework deployed at jAvIer Institute is grounded in peer-reviewed behavioural science. We extend these with our own empirical contributions."
+      data-es="Cada marco de intervención desplegado en jAvIer Institute está fundamentado en ciencias conductuales con revisión de pares. Los extendemos con nuestras propias contribuciones empíricas.">
+      Every intervention framework deployed at jAvIer Institute is grounded in peer-reviewed behavioural science. We extend these with our own empirical contributions.
+    </p>
+
+    <table class="frameworks-table">
+      <thead>
+        <tr>
+          <th data-en="Framework" data-es="Marco">Framework</th>
+          <th data-en="Full Name" data-es="Nombre completo">Full Name</th>
+          <th data-en="Application" data-es="Aplicación">Application</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="fade-in">
+          <td><span class="fw-code">TTM</span></td>
+          <td class="fw-name"
+            data-en="Transtheoretical Model"
+            data-es="Modelo Transteórico">
+            Transtheoretical Model
+          </td>
+          <td class="fw-desc"
+            data-en="Stages of behavioural change — mapping readiness to act"
+            data-es="Etapas del cambio conductual — mapeo de la disposición a actuar">
+            Stages of behavioural change — mapping readiness to act
+          </td>
+        </tr>
+        <tr class="fade-in">
+          <td><span class="fw-code">COM-B</span></td>
+          <td class="fw-name"
+            data-en="Capability–Opportunity–Motivation–Behavior"
+            data-es="Capacidad–Oportunidad–Motivación–Comportamiento">
+            Capability–Opportunity–Motivation–Behavior
+          </td>
+          <td class="fw-desc"
+            data-en="Structural motor of human behaviour — diagnosing barriers"
+            data-es="Motor estructural del comportamiento humano — diagnóstico de barreras">
+            Structural motor of human behaviour — diagnosing barriers
+          </td>
+        </tr>
+        <tr class="fade-in">
+          <td><span class="fw-code">SDL</span></td>
+          <td class="fw-name"
+            data-en="Self-Determined Learning (Heutagogy)"
+            data-es="Aprendizaje Autodeterminado (Heutagogía)">
+            Self-Determined Learning (Heutagogy)
+          </td>
+          <td class="fw-desc"
+            data-en="Autonomous learning — agency in behavioural adoption"
+            data-es="Aprendizaje autónomo — agencia en la adopción conductual">
+            Autonomous learning — agency in behavioural adoption
+          </td>
+        </tr>
+        <tr class="fade-in">
+          <td><span class="fw-code">TL</span></td>
+          <td class="fw-name"
+            data-en="Transformative Learning (Mezirow)"
+            data-es="Aprendizaje Transformativo (Mezirow)">
+            Transformative Learning (Mezirow)
+          </td>
+          <td class="fw-desc"
+            data-en="Critical reflection as the mechanism of deep behaviour change"
+            data-es="Reflexión crítica como mecanismo del cambio conductual profundo">
+            Critical reflection as the mechanism of deep behaviour change
+          </td>
+        </tr>
+        <tr class="fade-in">
+          <td><span class="fw-code">ALT</span></td>
+          <td class="fw-name"
+            data-en="Adult Learning Theory (Knowles)"
+            data-es="Teoría del Aprendizaje Adulto (Knowles)">
+            Adult Learning Theory (Knowles)
+          </td>
+          <td class="fw-desc"
+            data-en="Andragogy — pedagogical base for family-centred interventions"
+            data-es="Andragogía — base pedagógica para intervenciones centradas en la familia">
+            Andragogy — pedagogical base for family-centred interventions
+          </td>
+        </tr>
+        <tr class="fade-in">
+          <td>
+            <span class="fw-code">AI Extender</span>
+            <span class="fw-original">✦ ORIGINAL</span>
+          </td>
+          <td class="fw-name"
+            data-en="AI Extender Framework"
+            data-es="Framework AI Extender">
+            AI Extender Framework
+          </td>
+          <td class="fw-desc"
+            data-en="Original contribution — jAvIer Institute, 2026. AI as a motivational extension of human behaviour-change relationships."
+            data-es="Contribución original — jAvIer Institute, 2026. La IA como extensión motivacional de las relaciones humanas de cambio conductual.">
+            Original contribution — jAvIer Institute, 2026. AI as a motivational extension of human behaviour-change relationships.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ── INSTITUTION ── -->
+  <section class="section" id="institution">
+    <p class="eyebrow"
+      data-en="Institutional Structure"
+      data-es="Estructura Institucional">
+      Institutional Structure
+    </p>
+    <h2
+      data-en="Independent research. <em>Shared infrastructure.</em>"
+      data-es="Investigación independiente. <em>Infraestructura compartida.</em>">
+      Independent research. <em>Shared infrastructure.</em>
+    </h2>
+    <p class="lead"
+      data-en="jAvIer Institute is co-founded by Leonardo De la Hoz Borrego and LedeLab Group OÜ as the two founding members of the MTÜ. The relationship follows the Fraunhofer model: the Institute produces knowledge; LedeLab implements it commercially. Neither entity is subordinate to the other."
+      data-es="jAvIer Institute es co-fundado por Leonardo De la Hoz Borrego y LedeLab Group OÜ como los dos miembros fundadores del MTÜ. La relación sigue el modelo Fraunhofer: el Instituto produce conocimiento; LedeLab lo implementa comercialmente. Ninguna entidad es subordinada de la otra.">
+      jAvIer Institute is co-founded by Leonardo De la Hoz Borrego and LedeLab Group OÜ as the two founding members of the MTÜ. The relationship follows the Fraunhofer model: the Institute produces knowledge; LedeLab implements it commercially. Neither entity is subordinate to the other.
+    </p>
+
+    <div class="institution-grid">
+      <div class="inst-col">
+        <div class="inst-col-title">jAvIer Institute MTÜ</div>
+        <div class="inst-item fade-in"
+          data-en="Produces scientific knowledge and validated methodology"
+          data-es="Produce conocimiento científico y metodología validada">
+          Produces scientific knowledge and validated methodology
+        </div>
+        <div class="inst-item fade-in"
+          data-en="Signs academic publications and institutional communications"
+          data-es="Firma publicaciones académicas y comunicaciones institucionales">
+          Signs academic publications and institutional communications
+        </div>
+        <div class="inst-item fade-in"
+          data-en="Manages research grants and academic funding"
+          data-es="Gestiona grants de investigación y financiamiento académico">
+          Manages research grants and academic funding
+        </div>
+        <div class="inst-item fade-in"
+          data-en="Defines the AI-native educational and health paradigm"
+          data-es="Define el paradigma educativo y de salud nativo en IA">
+          Defines the AI-native educational and health paradigm
+        </div>
+        <div class="inst-item fade-in"
+          data-en="Accredits and hosts researchers in residence"
+          data-es="Acredita y acoge investigadores en residencia">
+          Accredits and hosts researchers in residence
+        </div>
+      </div>
+      <div class="inst-col">
+        <div class="inst-col-title">LedeLab Group OÜ</div>
+        <div class="inst-item fade-in"
+          data-en="Provides AI infrastructure and agentic systems"
+          data-es="Provee infraestructura IA y sistemas agénticos">
+          Provides AI infrastructure and agentic systems
+        </div>
+        <div class="inst-item fade-in"
+          data-en="Implements research findings into real-world products"
+          data-es="Implementa los hallazgos de investigación en productos del mundo real">
+          Implements research findings into real-world products
+        </div>
+        <div class="inst-item fade-in"
+          data-en="Hosts the Institute's technical stack and automation"
+          data-es="Aloja el stack técnico y la automatización del Instituto">
+          Hosts the Institute's technical stack and automation
+        </div>
+        <div class="inst-item fade-in"
+          data-en="Pays annual licence for methodology and framework access"
+          data-es="Paga licencia anual por acceso a metodología y frameworks">
+          Pays annual licence for methodology and framework access
+        </div>
+        <div class="inst-item fade-in"
+          data-en="Collaborates in jointly-scoped hybrid projects"
+          data-es="Colabora en proyectos híbridos de alcance conjunto">
+          Collaborates in jointly-scoped hybrid projects
+        </div>
+      </div>
+    </div>
+
+    <div class="inst-note fade-in"
+      data-en="A cross-licence agreement governs the symbiotic exchange between both entities. The model ensures institutional independence while enabling rapid real-world validation of research findings — inspired by the Fraunhofer Society ↔ industry model."
+      data-es="Un acuerdo de licencia cruzada rige el intercambio simbiótico entre ambas entidades. El modelo garantiza la independencia institucional mientras permite la validación rápida de hallazgos de investigación en el mundo real — inspirado en el modelo Fraunhofer ↔ industria.">
+      A cross-licence agreement governs the symbiotic exchange between both entities. The model ensures institutional independence while enabling rapid real-world validation of research findings — inspired by the Fraunhofer Society ↔ industry model.
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <div class="cta-strip" id="contact">
+    <div class="cta-left">
+      <p class="cta-eyebrow"
+        data-en="Collaborate"
+        data-es="Colabora">
+        Collaborate
+      </p>
+      <p class="cta-headline"
+        data-en='Research together.<br><em>Build evidence.</em>'
+        data-es='Investigamos juntos.<br><em>Construimos evidencia.</em>'>
+        Research together.<br><em>Build evidence.</em>
+      </p>
+    </div>
+    <div class="cta-links">
+      <a href="mailto:info@javierinstitute.org" class="cta-link"
+        data-en="Write to us →"
+        data-es="Escríbenos →">
+        Write to us →
+      </a>
+      <a href="mailto:leonardo@javierinstitute.org" class="cta-link cta-link--ghost">
+        leonardo@javierinstitute.org
+      </a>
+      <a href="https://ledelab.group" class="cta-link cta-link--ghost"
+        data-en="LedeLab Group ↗"
+        data-es="LedeLab Group ↗">
+        LedeLab Group ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-logo">
+        j<span class="cap-A">A</span>v<span class="cap-I">I</span>er Institute
+      </div>
+      <div class="footer-tagline"
+        data-en="Human Change. AI-Guided."
+        data-es="Cambio humano. Guiado por IA.">
+        Human Change. AI-Guided.
+      </div>
+      <div class="footer-legal">
+        Javier Institute MTÜ · Tallinn, Estonia · Est. 2026
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-links-label"
+        data-en="Research"
+        data-es="Investigación">
+        Research
+      </div>
+      <div class="footer-links">
+        <a href="#research"    data-en="Research areas"  data-es="Líneas de investigación">Research areas</a>
+        <a href="#foundations" data-en="Frameworks"      data-es="Fundamentos teóricos">Frameworks</a>
+        <a href="#institution" data-en="Institution"     data-es="Institución">Institution</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-links-label"
+        data-en="Contact"
+        data-es="Contacto">
+        Contact
+      </div>
+      <div class="footer-links">
+        <a href="mailto:info@javierinstitute.org">info@javierinstitute.org</a>
+        <a href="mailto:leonardo@javierinstitute.org">leonardo@javierinstitute.org</a>
+        <a href="https://javierinstitute.eu">javierinstitute.eu ↗</a>
+        <a href="https://ledelab.group">ledelab.group ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── THEME ──
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+
+    function applyTheme(t) {
+      root.setAttribute('data-theme', t);
+      themeBtn.textContent = t === 'dark' ? '☀' : '☾';
+      localStorage.setItem('ji-theme', t);
+    }
+
+    function toggleTheme() {
+      applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    // Init theme button label
+    applyTheme(root.getAttribute('data-theme') || 'dark');
+
+    // ── LANG ──
+    const langBtn = document.getElementById('langBtn');
+    let lang = localStorage.getItem('ji-lang') || 'en';
+
+    function applyLang(l) {
+      lang = l;
+      langBtn.textContent = l === 'en' ? 'ES' : 'EN';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.innerHTML = el.dataset[l] || el.dataset.en;
+      });
+      root.setAttribute('lang', l);
+      localStorage.setItem('ji-lang', l);
+    }
+
+    function toggleLang() { applyLang(lang === 'en' ? 'es' : 'en'); }
+
+    applyLang(lang);
+
+    // ── SCROLL FADE ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

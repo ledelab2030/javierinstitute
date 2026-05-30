@@ -1,0 +1,31 @@
+# ── jAvIer Institute · Jekyll config ───────────────────────────────
+# GitHub Pages builds this automatically. The existing index.html and
+# assets/ are served unchanged (files without front matter are copied
+# verbatim). This only adds the /insights publishing layer.
+
+title: jAvIer Institute
+description: Independent non-profit research advancing AI-guided human behavioural change.
+url: "https://javierinstitute.org"
+lang: en
+
+# Each post lives at /insights/<slug>/
+permalink: /insights/:title/
+
+# Auto-apply the post layout to everything in _posts
+defaults:
+  - scope:
+      path: "_posts"
+      type: posts
+    values:
+      layout: post
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Keep these out of the built site (CNAME is intentionally NOT excluded —
+# it must be published so the custom domain keeps working).
+exclude:
+  - README.md
+  - INSTALL.md
